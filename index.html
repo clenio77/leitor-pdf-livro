@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover" />
+    <meta name="theme-color" content="#1a0f0a" />
+    <meta name="description" content="Leitor de PDF com experiência visual de livro físico sobre escrivaninha aconchegante" />
+    <title>Leitor da Escrivaninha - Sua Biblioteca Particular</title>
+    <!-- Fontes self-hosted (carregadas via CSS bundled pelo Vite) -->
+  </head>
+  <body>
+    <div id="app" class="desk-surface">
+      <!-- Elementos decorativos de ambientação da escrivaninha -->
+      <div class="desk-cup-shadow" aria-hidden="true"></div>
+      <div class="desk-brass-bookmark" aria-hidden="true"></div>
+
+      <!-- Área de Boas-Vindas & Upload -->
+      <main id="welcome-view"></main>
+
+      <!-- Área do Leitor de Livro -->
+      <section id="reader-view" class="reader-viewport" style="display: none;">
+        <div id="book-container" class="book-container"></div>
+      </section>
+
+      <!-- Raiz dos Controles Flutuantes -->
+      <div id="controls-root"></div>
+
+      <!-- Raiz do Painel de Miniaturas -->
+      <div id="thumbnails-root"></div>
+
+      <!-- Overlay de Carregamento -->
+      <div id="loading-overlay" class="app-loading-overlay">
+        <div class="book-spinner" aria-hidden="true">
+          <div class="spinner-page"></div>
+          <div class="spinner-page"></div>
+          <div class="spinner-page"></div>
+        </div>
+        <p class="loading-text" id="loading-text">Abrindo seu livro...</p>
+      </div>
+
+      <!-- Notificação de Erro -->
+      <div id="error-toast" class="error-toast" role="alert">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <span id="error-message">Erro ao processar o arquivo.</span>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

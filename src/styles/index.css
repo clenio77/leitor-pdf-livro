@@ -1,0 +1,103 @@
+@import './fonts.css';
+@import './desk.css';
+@import './book.css';
+@import './controls.css';
+@import './thumbnails.css';
+@import './welcome.css';
+@import './themes.css';
+
+/* ==========================================================================
+   TELA DE CARREGAMENTO & MODAL DE ERROS
+   ========================================================================== */
+
+.app-loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(14, 7, 4, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.app-loading-overlay.loading-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Animação de folheamento de livro para o loading */
+.book-spinner {
+  width: 50px;
+  height: 38px;
+  position: relative;
+  perspective: 150px;
+}
+
+.spinner-page {
+  position: absolute;
+  top: 0;
+  left: 25px;
+  width: 25px;
+  height: 38px;
+  background: #fdfbf7;
+  border-radius: 0 2px 2px 0;
+  transform-origin: left center;
+  animation: flipSpinner 1.2s infinite ease-in-out;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.spinner-page:nth-child(2) {
+  animation-delay: 0.3s;
+  background: #f7f0df;
+}
+
+.spinner-page:nth-child(3) {
+  animation-delay: 0.6s;
+  background: #ecd9b5;
+}
+
+@keyframes flipSpinner {
+  0% { transform: rotateY(0deg); }
+  50% { transform: rotateY(-180deg); }
+  100% { transform: rotateY(-180deg); }
+}
+
+.loading-text {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #dfcaa2;
+  letter-spacing: 0.5px;
+}
+
+/* Modal de Erro */
+.error-toast {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100px);
+  background: rgba(44, 14, 14, 0.95);
+  border: 1px solid rgba(220, 70, 70, 0.4);
+  color: #ffd8d8;
+  padding: 14px 22px;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.error-toast.toast-visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}

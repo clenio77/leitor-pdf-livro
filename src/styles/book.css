@@ -1,0 +1,209 @@
+/* ==========================================================================
+   ESTILOS DO LIVRO FÍSICO, PÁGINAS E LOMBADA
+   ========================================================================== */
+
+.reader-viewport {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  perspective: 2500px;
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+}
+
+/* Sombra e elevação do livro sobre a madeira */
+.book-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.65)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.book-wrapper {
+  position: relative;
+  display: flex;
+  border-radius: 4px;
+}
+
+/* Estrutura de cada página */
+.book-page {
+  position: relative;
+  background-color: var(--paper-bg);
+  overflow: hidden;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.03);
+  cursor: grab;
+}
+
+.book-page:active {
+  cursor: grabbing;
+}
+
+.page-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--paper-bg);
+  /* Textura de papel artesanal sutil com gradiente duplo */
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
+    linear-gradient(to right, rgba(0,0,0,0.015) 0%, transparent 8%, transparent 92%, rgba(0,0,0,0.02) 100%);
+}
+
+.page-canvas-wrapper {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.page-canvas {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Sombra da lombada (Spine shadow) */
+.page-spine-shadow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 32px;
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* Ocultar sombras no modo retrato / mobile para o texto nunca ser encoberto */
+.is-portrait-mode .page-spine-shadow,
+.is-portrait-mode .page-edge-highlight {
+  display: none !important;
+}
+
+/* Página esquerda: lombada à direita */
+.page-left .page-spine-shadow {
+  right: 0;
+  background: linear-gradient(to left, rgba(16, 8, 4, 0.28) 0%, rgba(16, 8, 4, 0.08) 40%, transparent 100%);
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+/* Página direita: lombada à esquerda */
+.page-right .page-spine-shadow {
+  left: 0;
+  background: linear-gradient(to right, rgba(16, 8, 4, 0.28) 0%, rgba(16, 8, 4, 0.08) 40%, transparent 100%);
+  border-left: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+/* Realce suave na borda externa do papel */
+.page-edge-highlight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.page-left .page-edge-highlight {
+  left: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.35) 0%, transparent 100%);
+  border-left: 1px solid rgba(210, 195, 175, 0.5);
+}
+
+.page-right .page-edge-highlight {
+  right: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.35) 0%, transparent 100%);
+  border-right: 1px solid rgba(210, 195, 175, 0.5);
+}
+
+/* Rodapé com número da página — sutil, aparece no hover */
+.page-footer {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  z-index: 3;
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+.book-page:hover .page-footer {
+  opacity: 0.85;
+}
+
+.page-num-label {
+  font-size: 0.72rem;
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+/* Indicadores de canto para folheamento */
+.book-page::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+  z-index: 6;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.page-right::before {
+  right: 0;
+  background: linear-gradient(135deg, transparent 50%, rgba(212, 155, 66, 0.3) 100%);
+}
+
+.page-left::before {
+  left: 0;
+  background: linear-gradient(-135deg, transparent 50%, rgba(212, 155, 66, 0.3) 100%);
+}
+
+.book-page:hover::before {
+  opacity: 1;
+}
+
+/* Esqueleto de carregamento com shimmer suave */
+.page-loading-skeleton {
+  position: absolute;
+  inset: 0;
+  background: #f7f3ea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.skeleton-shimmer {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
+  animation: shimmer 1.8s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Respeito a prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-shimmer {
+    animation: none;
+  }
+}

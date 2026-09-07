@@ -1,0 +1,142 @@
+/* ==========================================================================
+   AMBIENTE ESCRIVANINHA & ILUMINAÇÃO ACONCHEGANTE (CSS PURO)
+   ========================================================================== */
+
+:root {
+  --wood-base: #180d07;
+  --wood-dark: #100804;
+  --wood-grain-1: #2a160d;
+  --wood-grain-2: #381f13;
+  --lamp-glow: rgba(240, 185, 110, 0.16);
+  --lamp-hotspot: rgba(255, 215, 140, 0.28);
+  --paper-bg: #fcf9f2;
+  --paper-shadow: rgba(0, 0, 0, 0.45);
+  --gold-accent: #d49b42;
+  --gold-hover: #e5b35e;
+  --text-dark: #2c251f;
+  --text-muted: #847568;
+  --control-bg: rgba(20, 12, 8, 0.78);
+  --control-border: rgba(212, 155, 66, 0.22);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+  background-color: var(--wood-dark);
+  color: #f5eedb;
+  user-select: none;
+}
+
+/* Escrivaninha de Madeira com Veios e Lustro */
+.desk-surface {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background:
+    /* Reflexo suave da luz da mesa */
+    radial-gradient(ellipse 70% 50% at 50% 35%, var(--lamp-hotspot) 0%, transparent 70%),
+    /* Luz ambiente quente */
+    radial-gradient(circle 900px at 15% 15%, var(--lamp-glow) 0%, transparent 60%),
+    /* Textura de veios de madeira em gradientes múltiplos */
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.012) 0px,
+      rgba(255, 255, 255, 0.012) 2px,
+      transparent 2px,
+      transparent 18px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      var(--wood-dark) 0px,
+      var(--wood-base) 4px,
+      var(--wood-grain-1) 12px,
+      var(--wood-grain-2) 16px,
+      var(--wood-base) 24px,
+      var(--wood-dark) 32px
+    );
+  transition: filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Vinheta periférica profunda (efeito de leitura noturna acolhedora) */
+.desk-surface::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle 85% at 50% 50%, transparent 50%, rgba(8, 4, 2, 0.55) 100%);
+  z-index: 5;
+}
+
+/* Modo Foco: escurece a mesa e destaca o livro */
+.desk-surface.focus-mode-active {
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 45%, rgba(255, 220, 160, 0.12) 0%, transparent 75%),
+    #0a0503;
+}
+
+.desk-surface.focus-mode-active::after {
+  background: radial-gradient(circle 75% at 50% 50%, transparent 30%, rgba(3, 1, 1, 0.94) 95%);
+}
+
+/* Adornos opcionais em CSS puro na escrivaninha */
+.desk-cup-shadow {
+  position: absolute;
+  bottom: 40px;
+  left: 60px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.08) 60%, transparent 80%);
+  filter: blur(4px);
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.7;
+}
+
+.desk-brass-bookmark {
+  position: absolute;
+  top: 30px;
+  right: 70px;
+  width: 24px;
+  height: 120px;
+  background: linear-gradient(135deg, #dfa94b 0%, #a2722b 60%, #6e4813 100%);
+  box-shadow: 2px 8px 16px rgba(0, 0, 0, 0.55), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  border-radius: 2px 2px 8px 8px;
+  transform: rotate(-12deg);
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.65;
+}
+
+.desk-brass-bookmark::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 25px;
+  background: #a22b2b;
+  border-radius: 2px;
+  box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 768px) {
+  .desk-cup-shadow, .desk-brass-bookmark {
+    display: none;
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "leitor-pdf-livro",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node ./node_modules/vite/bin/vite.js",
+    "build": "node ./node_modules/typescript/bin/tsc && node ./node_modules/vite/bin/vite.js build",
+    "preview": "node ./node_modules/vite/bin/vite.js preview"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.2",
+    "vite": "^8.2.2"
+  },
+  "dependencies": {
+    "idb-keyval": "^6.3.0",
+    "page-flip": "^2.0.7",
+    "pdfjs-dist": "^6.3.289",
+    "vite-plugin-pwa": "^1.3.0"
+  }
+}

@@ -1,0 +1,217 @@
+/* ==========================================================================
+   BARRA DE CONTROLES FLUTUANTE & FEEDBACK VISUAL
+   ========================================================================== */
+
+.reader-controls-wrapper {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  z-index: 50;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  pointer-events: auto;
+}
+
+.reader-controls-wrapper.controls-hidden {
+  transform: translateX(-50%) translateY(80px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Barra de progresso de leitura integrada */
+.reading-progress-track {
+  width: 92%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  overflow: visible;
+  position: relative;
+}
+
+.reading-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-accent) 0%, #f3cc87 100%);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.reading-progress-fill::after {
+  content: '';
+  position: absolute;
+  right: -3px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold-accent);
+  box-shadow: 0 0 8px rgba(212, 155, 66, 0.6), 0 0 16px rgba(212, 155, 66, 0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.reading-progress-track:hover .reading-progress-fill::after {
+  opacity: 1;
+}
+
+/* Pílula de botões (Glassmorphism de madeira nobre) */
+.controls-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--control-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--control-border);
+  border-radius: 30px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55), 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Pill secundária — oculta por padrão, slide-up ao expandir */
+.controls-pill-secondary {
+  opacity: 0;
+  transform: translateY(8px) scale(0.95);
+  pointer-events: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0 14px;
+  margin-bottom: -4px;
+}
+
+.controls-pill-secondary.secondary-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  max-height: 60px;
+  padding: 8px 14px;
+  margin-bottom: 0;
+}
+
+/* Botões de controle */
+.ctrl-btn {
+  background: transparent;
+  border: none;
+  color: #eedcc0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.ctrl-btn:hover {
+  background: rgba(212, 155, 66, 0.18);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.ctrl-btn:active {
+  transform: translateY(1px) scale(0.96);
+}
+
+.ctrl-btn.active {
+  background: rgba(212, 155, 66, 0.35);
+  color: #ffe6ba;
+  box-shadow: 0 0 10px rgba(212, 155, 66, 0.3);
+}
+
+.ctrl-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 0 2px;
+}
+
+/* Caixa de salto de página */
+.page-selector-box {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  font-size: 0.85rem;
+  color: #dfcaa2;
+  cursor: pointer;
+}
+
+.input-current-page {
+  width: 38px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed var(--gold-accent);
+  color: #fff;
+  text-align: center;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  outline: none;
+  -moz-appearance: textfield;
+}
+
+.input-current-page::-webkit-outer-spin-button,
+.input-current-page::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.lbl-page-prefix,
+.lbl-page-separator {
+  color: #a4917a;
+  font-size: 0.8rem;
+}
+
+.lbl-total-pages {
+  font-weight: 600;
+  color: #dfcaa2;
+}
+
+/* Botão de ação (Trocar livro) */
+.btn-action-open {
+  width: auto;
+  border-radius: 18px;
+  padding: 0 12px;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-family: inherit;
+  font-weight: 500;
+  background: rgba(212, 155, 66, 0.14);
+  border: 1px solid rgba(212, 155, 66, 0.3);
+}
+
+.btn-action-open:hover {
+  background: rgba(212, 155, 66, 0.28);
+}
+
+.btn-text-desktop {
+  display: inline;
+}
+
+@media (max-width: 640px) {
+  .btn-text-desktop {
+    display: none;
+  }
+  .controls-pill {
+    padding: 6px 10px;
+    gap: 3px;
+  }
+  .ctrl-btn {
+    width: 32px;
+    height: 32px;
+  }
+  .reader-controls-wrapper {
+    bottom: 16px;
+  }
+}

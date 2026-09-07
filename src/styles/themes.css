@@ -1,0 +1,194 @@
+/* ==========================================================================
+   TEMA ALTERNATIVO: MANHÃ DE INVERNO (Carvalho claro, luz difusa)
+   ========================================================================== */
+
+[data-theme="morning"] {
+  --wood-base: #d4c5b0;
+  --wood-dark: #c2b49e;
+  --wood-grain-1: #bfae96;
+  --wood-grain-2: #cfc0a8;
+  --lamp-glow: rgba(160, 145, 120, 0.10);
+  --lamp-hotspot: rgba(200, 185, 160, 0.14);
+  --paper-bg: #fefdfb;
+  --paper-shadow: rgba(0, 0, 0, 0.15);
+  --gold-accent: #8b6f3a;
+  --gold-hover: #a68540;
+  --text-dark: #2c2c2c;
+  --text-muted: #706256;
+  --control-bg: rgba(245, 240, 232, 0.88);
+  --control-border: rgba(139, 111, 58, 0.22);
+}
+
+/* Vinheta clara — efeito sutil de sombra periférica */
+[data-theme="morning"] .desk-surface::after {
+  background: radial-gradient(circle 85% at 50% 50%, transparent 55%, rgba(160, 145, 120, 0.30) 100%);
+}
+
+/* Ajustar texto de controles para contraste no fundo claro */
+[data-theme="morning"] .ctrl-btn {
+  color: #5a4d3f;
+}
+
+[data-theme="morning"] .ctrl-btn:hover {
+  background: rgba(139, 111, 58, 0.15);
+  color: #2c2c2c;
+}
+
+[data-theme="morning"] .ctrl-btn.active {
+  background: rgba(139, 111, 58, 0.28);
+  color: #3a2d1c;
+  box-shadow: 0 0 8px rgba(139, 111, 58, 0.25);
+}
+
+[data-theme="morning"] .page-selector-box {
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.10);
+  color: #5a4d3f;
+}
+
+[data-theme="morning"] .input-current-page {
+  color: #2c2c2c;
+  border-bottom-color: var(--gold-accent);
+}
+
+[data-theme="morning"] .lbl-page-prefix,
+[data-theme="morning"] .lbl-page-separator {
+  color: #8a7d6f;
+}
+
+[data-theme="morning"] .lbl-total-pages {
+  color: #5a4d3f;
+}
+
+/* Welcome card ajustes para tema claro */
+[data-theme="morning"] .welcome-leather-journal {
+  background: linear-gradient(135deg, #e8ddd0 0%, #d9ccbc 60%, #cfc0a8 100%);
+  border-color: rgba(139, 111, 58, 0.3);
+  box-shadow:
+    0 24px 50px rgba(0, 0, 0, 0.15),
+    0 4px 14px rgba(0, 0, 0, 0.10),
+    inset 0 1px 2px rgba(255, 255, 255, 0.5),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="morning"] .welcome-title {
+  color: #3a2d1c;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="morning"] .welcome-subtitle {
+  color: #706256;
+}
+
+[data-theme="morning"] .upload-drop-area {
+  background: rgba(255, 255, 255, 0.35);
+  border-color: rgba(139, 111, 58, 0.35);
+}
+
+[data-theme="morning"] .drop-label {
+  color: #5a4d3f;
+}
+
+[data-theme="morning"] .journal-badge {
+  background: radial-gradient(circle, #d4c5b0 0%, #bfae96 100%);
+  border-color: var(--gold-accent);
+}
+
+[data-theme="morning"] .loading-text {
+  color: #706256;
+}
+
+[data-theme="morning"] .app-loading-overlay {
+  background: rgba(210, 200, 185, 0.92);
+}
+
+/* Drawer no tema claro */
+[data-theme="morning"] .thumbnail-drawer {
+  background: rgba(240, 235, 225, 0.96);
+  border-right-color: rgba(139, 111, 58, 0.2);
+}
+
+[data-theme="morning"] .drawer-title {
+  color: #3a2d1c;
+}
+
+[data-theme="morning"] .drawer-subtitle {
+  color: #706256;
+}
+
+[data-theme="morning"] .thumb-card:hover {
+  background: rgba(139, 111, 58, 0.08);
+  border-color: rgba(139, 111, 58, 0.2);
+}
+
+[data-theme="morning"] .thumb-card.thumb-active {
+  background: rgba(139, 111, 58, 0.16);
+  border-color: var(--gold-accent);
+}
+
+/* Decorações da escrivaninha no tema claro */
+[data-theme="morning"] .desk-cup-shadow {
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.10) 0%, rgba(0, 0, 0, 0.03) 60%, transparent 80%);
+}
+
+[data-theme="morning"] .desk-brass-bookmark {
+  opacity: 0.5;
+}
+
+/* Resume banner */
+[data-theme="morning"] .resume-banner {
+  background: rgba(139, 111, 58, 0.08);
+  border-color: rgba(139, 111, 58, 0.25);
+}
+
+[data-theme="morning"] .resume-filename {
+  color: #3a2d1c;
+}
+
+[data-theme="morning"] .resume-page {
+  color: #706256;
+}
+
+[data-theme="morning"] .privacy-note {
+  color: #8a7d6f;
+}
+
+/* Focus mode no tema claro — escurece sutilmente */
+[data-theme="morning"] .desk-surface.focus-mode-active {
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 45%, rgba(200, 185, 160, 0.08) 0%, transparent 75%),
+    #b8a993;
+}
+
+[data-theme="morning"] .desk-surface.focus-mode-active::after {
+  background: radial-gradient(circle 75% at 50% 50%, transparent 35%, rgba(100, 90, 75, 0.45) 95%);
+}
+
+/* Spinner pages no tema claro */
+[data-theme="morning"] .spinner-page {
+  background: #e8ddd0;
+}
+
+[data-theme="morning"] .spinner-page:nth-child(2) {
+  background: #d4c5b0;
+}
+
+[data-theme="morning"] .spinner-page:nth-child(3) {
+  background: #bfae96;
+}
+
+/* prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .controls-pill-secondary {
+    transition: none;
+  }
+  .welcome-leather-journal {
+    animation: none;
+  }
+  .btn-open-pdf {
+    animation: none;
+  }
+  .drop-icon {
+    animation: none;
+  }
+}

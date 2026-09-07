@@ -1,0 +1,257 @@
+/* ==========================================================================
+   TELA INICIAL: DIÁRIO DE COURO NA ESCRIVANINHA & ÁREA DE DROP
+   ========================================================================== */
+
+/* Animação de entrada suave */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Shimmer periódico no botão CTA */
+@keyframes goldShimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Pulsação sutil do ícone de drop */
+@keyframes floatUpDown {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+
+.desk-welcome-card {
+  position: relative;
+  width: 90%;
+  max-width: 580px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Efeito de diário de couro encadernado apoiado sobre a escrivaninha */
+.welcome-leather-journal {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(135deg, #2b170e 0%, #1c0e08 60%, #120804 100%);
+  border: 1px solid rgba(212, 155, 66, 0.25);
+  border-radius: 12px;
+  padding: 36px 32px;
+  box-shadow:
+    0 24px 50px rgba(0, 0, 0, 0.75),
+    0 4px 14px rgba(0, 0, 0, 0.5),
+    inset 0 1px 2px rgba(255, 255, 255, 0.12),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Costura/vinco na borda lateral */
+.journal-crease {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 22px;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(212, 155, 66, 0.2), rgba(0,0,0,0.5));
+  box-shadow: 1px 0 0 rgba(255, 255, 255, 0.04);
+}
+
+.journal-badge {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #3d2314 0%, #190c06 100%);
+  border: 2px solid var(--gold-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(212, 155, 66, 0.3);
+}
+
+.welcome-title {
+  font-family: 'Cinzel', 'Crimson Pro', Georgia, serif;
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: #f7ebd4;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  margin-bottom: 6px;
+}
+
+.welcome-subtitle {
+  font-size: 1.05rem;
+  font-style: italic;
+  color: #c4ab87;
+  margin-bottom: 26px;
+}
+
+/* Área de Drop */
+.upload-drop-area {
+  width: 100%;
+  background: rgba(14, 7, 4, 0.45);
+  border: 2px dashed rgba(212, 155, 66, 0.35);
+  border-radius: 10px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.upload-drop-area:hover,
+.upload-drop-area.drag-active {
+  border-color: var(--gold-accent);
+  background: rgba(212, 155, 66, 0.08);
+  transform: scale(1.02);
+  box-shadow: 0 0 24px rgba(212, 155, 66, 0.15), inset 0 0 12px rgba(212, 155, 66, 0.05);
+}
+
+.drop-icon {
+  color: var(--gold-accent);
+  opacity: 0.85;
+  transition: transform 0.3s ease;
+  animation: floatUpDown 2.5s ease-in-out infinite;
+}
+
+.upload-drop-area:hover .drop-icon {
+  transform: translateY(-3px);
+}
+
+.drop-label {
+  font-size: 1rem;
+  color: #dfcaa2;
+  font-weight: 500;
+}
+
+.drop-or {
+  font-size: 0.8rem;
+  color: #8c765f;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-open-pdf {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(
+    135deg,
+    #d49b42 0%, #aa7227 40%, #e5c070 50%, #aa7227 60%, #d49b42 100%
+  );
+  background-size: 200% auto;
+  color: #1a0f07;
+  border: none;
+  border-radius: 24px;
+  padding: 10px 24px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  transition: all 0.2s ease;
+  animation: goldShimmer 4s ease-in-out infinite;
+}
+
+.btn-open-pdf:hover {
+  background: linear-gradient(135deg, #e5b35e 0%, #bd8332 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(212, 155, 66, 0.35);
+}
+
+/* Banner de retomada */
+.resume-banner {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px 18px;
+  background: rgba(212, 155, 66, 0.1);
+  border: 1px solid rgba(212, 155, 66, 0.3);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.resume-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  overflow: hidden;
+}
+
+.resume-tag {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--gold-accent);
+  font-weight: 600;
+}
+
+.resume-filename {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #f7ebd4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 240px;
+}
+
+.resume-page {
+  font-size: 0.78rem;
+  color: #a4917a;
+}
+
+.btn-resume {
+  background: transparent;
+  color: var(--gold-accent);
+  border: 1px solid var(--gold-accent);
+  border-radius: 16px;
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.btn-resume:hover {
+  background: var(--gold-accent);
+  color: #1a0f07;
+}
+
+/* Nota de privacidade */
+.privacy-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  font-size: 0.8rem;
+  color: #8a7866;
+}
+
+@media (max-width: 600px) {
+  .welcome-leather-journal {
+    padding: 24px 18px;
+  }
+  .welcome-title {
+    font-size: 1.5rem;
+  }
+  .resume-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .btn-resume {
+    width: 100%;
+    margin-top: 8px;
+  }
+}

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <radialGradient id="bgGlow" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#3d2314"/>
+      <stop offset="100%" stop-color="#140b07"/>
+    </radialGradient>
+    <linearGradient id="goldPage" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5e6cb"/>
+      <stop offset="100%" stop-color="#dfcaa2"/>
+    </linearGradient>
+    <linearGradient id="goldSpine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e0a953"/>
+      <stop offset="100%" stop-color="#a86e24"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+  <rect width="192" height="192" rx="36" fill="url(#bgGlow)"/>
+  <g filter="url(#softShadow)" transform="translate(24, 38)">
+    <!-- Left Page -->
+    <path d="M72 10 C45 0, 15 8, 4 14 C2 15, 0 17, 0 20 L0 98 C0 100, 2 102, 4 101 C15 95, 45 88, 72 98 Z" fill="url(#goldPage)" stroke="#8e683b" stroke-width="1.5"/>
+    <!-- Right Page -->
+    <path d="M72 10 C99 0, 129 8, 140 14 C142 15, 144 17, 144 20 L144 98 C144 100, 142 102, 140 101 C129 95, 99 88, 72 98 Z" fill="url(#goldPage)" stroke="#8e683b" stroke-width="1.5"/>
+    <!-- Center Spine -->
+    <line x1="72" y1="8" x2="72" y2="102" stroke="url(#goldSpine)" stroke-width="4" stroke-linecap="round"/>
+    <!-- Subtle lines on pages -->
+    <line x1="16" y1="36" x2="58" y2="30" stroke="#bda37d" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+    <line x1="16" y1="48" x2="58" y2="42" stroke="#bda37d" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+    <line x1="16" y1="60" x2="52" y2="55" stroke="#bda37d" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+    <line x1="86" y1="30" x2="128" y2="36" stroke="#bda37d" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+    <line x1="86" y1="42" x2="128" y2="48" stroke="#bda37d" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+    <line x1="86" y1="55" x2="122" y2="60" stroke="#bda37d" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  </g>
+</svg>
