@@ -69,9 +69,13 @@ class App {
       onPrevPage: () => this.bookEngine?.turnPrev(),
       onNextPage: () => this.bookEngine?.turnNext(),
       onGoToPage: (page) => this.bookEngine?.goToPage(page),
+      onToggleSpread: () => this.togglePageSpread(),
+      onToggleReadingMode: () => this.toggleReadingMode(),
+      onIncreaseFontSize: () => this.increaseFontSize(),
+      onDecreaseFontSize: () => this.decreaseFontSize(),
       onZoomIn: () => this.changeZoom(0.2),
       onZoomOut: () => this.changeZoom(-0.2),
-      onZoomReset: () => this.resetZoom(),
+      onZoomReset: () => this.toggleReadingZoom(),
       onToggleThumbnails: () => this.thumbnailDrawer?.toggle(),
       onToggleFocusMode: () => this.toggleFocusMode(),
       onToggleFullscreen: () => this.toggleFullscreen(),
@@ -85,6 +89,7 @@ class App {
       onNext: () => this.bookEngine?.turnNext(),
       onZoomIn: () => this.changeZoom(0.15),
       onZoomOut: () => this.changeZoom(-0.15),
+      isZoomed: () => this.panZoom ? this.panZoom.isZoomed() : false,
       onEscape: () => {
         if (this.thumbnailDrawer) this.thumbnailDrawer.close();
         if (this.isFocusMode) this.toggleFocusMode();
@@ -144,25 +149,51 @@ class App {
       });
       this.thumbnailDrawer.render();
 
-      this.bookEngine = new BookEngine(this.bookContainer, this.pdfManager, {
-        onPageChange: (current, total) => {
-          this.controls.updatePage(current, total);
-          this.thumbnailDrawer?.setActivePage(current);
-          saveSettings({ currentPage: current });
+      const saved = getSettings();
+      const initialSingle = saved.twoPageView !== undefined ? !saved.twoPageView : undefined;
+
+      this.bookEngine = new BookEngine(
+        this.bookContainer,
+        this.pdfManager,
+        {
+          onPageChange: (current, total) => {
+            this.controls.updatePage(current, total);
+            this.thumbnailDrawer?.setActivePage(current);
+            saveSettings({ currentPage: current });
+            if (this.panZoom?.isZoomed()) {
+              this.panZoom.resetPanToTop();
+            }
+          },
+          onFlipStateChange: () => {
+            this.pageSound.play();
+          },
+          onModeChange: (mode, fontSize) => {
+            this.controls.setReadingMode(mode, fontSize);
+          },
+          onLoadingProgress: (msg) => {
+            if (msg) {
+              this.showLoading(msg);
+            } else {
+              this.hideLoading();
+            }
+          }
         },
-        onFlipStateChange: () => {
-          this.pageSound.play();
-        }
-      });
+        initialSingle
+      );
 
       await this.bookEngine.init(startPage);
+
+      this.controls.setSpreadMode(this.bookEngine.isSinglePageView());
+      this.controls.setReadingMode(this.bookEngine.getReadingMode(), this.bookEngine.getFontSize());
 
       // PanZoomController ensures zoom scales smoothly without clipping/overflow
       this.panZoom = new PanZoomController(this.bookContainer, this.readerView, (z) => {
         this.currentZoom = z;
+        this.controls.setZoom(z);
         saveSettings({ zoom: z });
       });
 
+      this.controls.setZoom(this.currentZoom);
       this.hideLoading();
     } catch (err: any) {
       console.error(err);
@@ -195,8 +226,65 @@ class App {
     }
   }
 
+  private async togglePageSpread(): Promise<void> {
+    if (!this.bookEngine) return;
+    this.panZoom?.reset();
+    const isSingle = await this.bookEngine.toggleSpread();
+    this.controls.setSpreadMode(isSingle);
+    saveSettings({ twoPageView: !isSingle });
+  }
+
+  private async toggleReadingMode(): Promise<void> {
+    if (!this.bookEngine) return;
+    this.showLoading('Alternando modo de leitura...');
+    try {
+      const newMode = await this.bookEngine.toggleReadingMode();
+      this.controls.setReadingMode(newMode, this.bookEngine.getFontSize());
+    } catch (err) {
+      console.error('Erro ao alternar modo de leitura:', err);
+    } finally {
+      this.hideLoading();
+    }
+  }
+
+  private async increaseFontSize(): Promise<void> {
+    if (!this.bookEngine) return;
+    this.showLoading('Aumentando tamanho do texto...');
+    try {
+      const newSize = await this.bookEngine.increaseFontSize();
+      this.controls.setFontSize(newSize);
+      this.controls.setReadingMode(this.bookEngine.getReadingMode(), newSize);
+    } catch (err) {
+      console.error('Erro ao aumentar fonte:', err);
+    } finally {
+      this.hideLoading();
+    }
+  }
+
+  private async decreaseFontSize(): Promise<void> {
+    if (!this.bookEngine) return;
+    this.showLoading('Reduzindo tamanho do texto...');
+    try {
+      const newSize = await this.bookEngine.decreaseFontSize();
+      this.controls.setFontSize(newSize);
+      this.controls.setReadingMode(this.bookEngine.getReadingMode(), newSize);
+    } catch (err) {
+      console.error('Erro ao diminuir fonte:', err);
+    } finally {
+      this.hideLoading();
+    }
+  }
+
+  private toggleReadingZoom(): void {
+    if (this.panZoom) {
+      const newZoom = this.panZoom.toggleReadingZoom();
+      this.controls.setZoom(newZoom);
+    }
+  }
+
   private resetZoom(): void {
     this.panZoom?.reset();
+    this.controls.setZoom(1.0);
   }
 
   private toggleFocusMode(): void {
@@ -261,8 +349,12 @@ class App {
     }
     this.resizeTimeout = window.setTimeout(async () => {
       this.panZoom?.reset();
+      this.controls.setZoom(1.0);
       const currentPage = this.bookEngine ? this.bookEngine.getCurrentPage() : 1;
       await this.bookEngine?.init(currentPage);
+      if (this.bookEngine) {
+        this.controls.setSpreadMode(this.bookEngine.isSinglePageView());
+      }
     }, 250);
   }
 

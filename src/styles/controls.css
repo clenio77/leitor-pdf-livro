@@ -99,8 +99,8 @@
   background: transparent;
   border: none;
   color: #eedcc0;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -126,6 +126,86 @@
   box-shadow: 0 0 10px rgba(212, 155, 66, 0.3);
 }
 
+/* Badge de Zoom e Modo Leitura Rápida */
+.ctrl-btn-zoom-badge {
+  width: auto;
+  min-width: 48px;
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 17px;
+  background: rgba(212, 155, 66, 0.18);
+  border: 1px solid rgba(212, 155, 66, 0.35);
+}
+
+.ctrl-btn-zoom-badge:hover {
+  background: rgba(212, 155, 66, 0.35);
+  border-color: var(--gold-accent);
+}
+
+.zoom-badge-text {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #f7ebd4;
+  letter-spacing: 0.3px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Grupo de Controles de Fonte (A- / Aa px / A+) */
+.font-controls-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 2px 4px;
+}
+
+.ctrl-btn-font {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  color: #eedcc0;
+}
+
+.font-btn-text {
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.ctrl-btn-font-badge {
+  width: auto;
+  min-width: 44px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 14px;
+  background: rgba(212, 155, 66, 0.18);
+  border: 1px solid rgba(212, 155, 66, 0.35);
+  color: #ffe6ba;
+}
+
+.ctrl-btn-font-badge:hover {
+  background: rgba(212, 155, 66, 0.35);
+  border-color: var(--gold-accent);
+}
+
+.font-badge-text {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #f7ebd4;
+  letter-spacing: 0.3px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.ctrl-btn-mode-toggle.active {
+  background: rgba(212, 155, 66, 0.35);
+  color: #ffe6ba;
+  box-shadow: 0 0 10px rgba(212, 155, 66, 0.35);
+  border: 1px solid rgba(212, 155, 66, 0.5);
+}
+
 .ctrl-divider {
   width: 1px;
   height: 20px;
@@ -137,28 +217,29 @@
 .page-selector-box {
   display: flex;
   align-items: center;
-  gap: 5px;
-  padding: 4px 10px;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  font-size: 0.85rem;
+  gap: 6px;
+  padding: 5px 12px;
+  background: rgba(0, 0, 0, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  font-size: 0.95rem;
   color: #dfcaa2;
   cursor: pointer;
 }
 
 .input-current-page {
-  width: 38px;
+  width: 40px;
   background: transparent;
   border: none;
   border-bottom: 1px dashed var(--gold-accent);
   color: #fff;
   text-align: center;
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 600;
   outline: none;
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .input-current-page::-webkit-outer-spin-button,
@@ -169,22 +250,23 @@
 
 .lbl-page-prefix,
 .lbl-page-separator {
-  color: #a4917a;
-  font-size: 0.8rem;
+  color: #c4b099;
+  font-size: 0.88rem;
 }
 
 .lbl-total-pages {
   font-weight: 600;
-  color: #dfcaa2;
+  color: #f7ebd4;
+  font-size: 0.95rem;
 }
 
 /* Botão de ação (Trocar livro) */
 .btn-action-open {
   width: auto;
   border-radius: 18px;
-  padding: 0 12px;
+  padding: 0 14px;
   gap: 6px;
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   font-family: inherit;
   font-weight: 500;
   background: rgba(212, 155, 66, 0.14);
@@ -204,14 +286,47 @@
     display: none;
   }
   .controls-pill {
-    padding: 6px 10px;
+    padding: 6px 8px;
     gap: 3px;
+    max-width: 98vw;
   }
   .ctrl-btn {
-    width: 32px;
+    width: 36px;
+    height: 36px;
+  }
+  .ctrl-btn-zoom-badge {
+    min-width: 44px;
     height: 32px;
+    padding: 0 8px;
+  }
+  .zoom-badge-text {
+    font-size: 0.82rem;
+  }
+  .page-selector-box {
+    padding: 4px 8px;
+    gap: 4px;
+    font-size: 0.88rem;
+  }
+  .input-current-page {
+    width: 32px;
+    font-size: 0.92rem;
+  }
+  .lbl-page-prefix,
+  .lbl-page-separator {
+    font-size: 0.82rem;
+  }
+  .lbl-total-pages {
+    font-size: 0.88rem;
   }
   .reader-controls-wrapper {
     bottom: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Em telas muito estreitas, recolhe os botões finos +/- para que a barra não estoure */
+  .controls-pill-primary #btn-zoom-out,
+  .controls-pill-primary #btn-zoom-in {
+    display: none;
   }
 }

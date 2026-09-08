@@ -6,6 +6,7 @@ export interface GestureCallbacks {
   onEscape: () => void;
   onFirstPage: () => void;
   onLastPage: () => void;
+  isZoomed?: () => boolean;
 }
 
 export class GestureHandler {
@@ -71,6 +72,11 @@ export class GestureHandler {
       'touchend',
       (e) => {
         if (e.changedTouches.length === 1) {
+          // Se estiver com zoom ativo, o toque/arrasto é para navegar pelo texto (pan), não para folhear
+          if (this.callbacks.isZoomed?.()) {
+            return;
+          }
+
           const deltaX = e.changedTouches[0].clientX - this.touchStartX;
           const deltaY = e.changedTouches[0].clientY - this.touchStartY;
 

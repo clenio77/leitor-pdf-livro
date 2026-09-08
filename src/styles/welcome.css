@@ -132,7 +132,7 @@
 }
 
 .drop-or {
-  font-size: 0.8rem;
+  font-size: 0.88rem;
   color: #8c765f;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -188,7 +188,7 @@
 }
 
 .resume-tag {
-  font-size: 0.7rem;
+  font-size: 0.82rem;
   text-transform: uppercase;
   letter-spacing: 0.8px;
   color: var(--gold-accent);
@@ -196,7 +196,7 @@
 }
 
 .resume-filename {
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 500;
   color: #f7ebd4;
   white-space: nowrap;
@@ -206,8 +206,8 @@
 }
 
 .resume-page {
-  font-size: 0.78rem;
-  color: #a4917a;
+  font-size: 0.88rem;
+  color: #c4b099;
 }
 
 .btn-resume {
@@ -215,8 +215,8 @@
   color: var(--gold-accent);
   border: 1px solid var(--gold-accent);
   border-radius: 16px;
-  padding: 6px 14px;
-  font-size: 0.82rem;
+  padding: 6px 16px;
+  font-size: 0.9rem;
   font-family: inherit;
   font-weight: 600;
   cursor: pointer;
@@ -235,8 +235,8 @@
   align-items: center;
   gap: 8px;
   margin-top: 24px;
-  font-size: 0.8rem;
-  color: #8a7866;
+  font-size: 0.88rem;
+  color: #a4917a;
 }
 
 @media (max-width: 600px) {

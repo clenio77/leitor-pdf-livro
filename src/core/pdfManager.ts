@@ -1,6 +1,7 @@
 import * as pdfjsLib from 'pdfjs-dist';
 import pdfWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 import { PDFDocMetadata } from '../types';
+import { ContentExtractor, ContentBlock } from './contentExtractor';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker;
 
@@ -8,6 +9,7 @@ export class PDFManager {
   private pdfDoc: pdfjsLib.PDFDocumentProxy | null = null;
   private metadata: PDFDocMetadata | null = null;
   private renderedPagesCache = new Map<number, HTMLCanvasElement>();
+  private cachedBlocks: ContentBlock[] | null = null;
 
   public async loadDocument(data: ArrayBuffer | Uint8Array, fileName: string): Promise<PDFDocMetadata> {
     this.renderedPagesCache.clear();
@@ -59,6 +61,40 @@ export class PDFManager {
 
   public getTotalPages(): number {
     return this.pdfDoc ? this.pdfDoc.numPages : 0;
+  }
+
+  public getDocumentProxy(): pdfjsLib.PDFDocumentProxy | null {
+    return this.pdfDoc;
+  }
+
+  public async extractContentBlocks(
+    onProgress?: (current: number, total: number) => void
+  ): Promise<ContentBlock[]> {
+    if (this.cachedBlocks) {
+      return this.cachedBlocks;
+    }
+    if (!this.pdfDoc) {
+      throw new Error('Nenhum documento PDF carregado para extração.');
+    }
+
+    const allBlocks: ContentBlock[] = [];
+    const total = this.pdfDoc.numPages;
+
+    for (let p = 1; p <= total; p++) {
+      try {
+        const page = await this.pdfDoc.getPage(p);
+        const extracted = await ContentExtractor.extractPage(page, p);
+        allBlocks.push(...extracted.blocks);
+        if (onProgress) {
+          onProgress(p, total);
+        }
+      } catch (err) {
+        console.warn(`Aviso: erro na extração da página ${p}:`, err);
+      }
+    }
+
+    this.cachedBlocks = allBlocks;
+    return allBlocks;
   }
 
   public async renderPageToCanvas(
@@ -141,6 +177,7 @@ export class PDFManager {
       this.pdfDoc = null;
     }
     this.renderedPagesCache.clear();
+    this.cachedBlocks = null;
     this.metadata = null;
   }
 }

@@ -140,3 +140,9 @@ body, html {
     display: none;
   }
 }
+
+@media (max-width: 640px) {
+  html {
+    font-size: 16.5px;
+  }
+}

@@ -50,6 +50,37 @@ export class PanZoomController {
     this.setZoom(1.0);
   }
 
+  public isZoomed(): boolean {
+    return this.zoom > 1.05;
+  }
+
+  public resetPanToTop(): void {
+    if (this.zoom <= 1.05) return;
+    const vh = this.viewport.clientHeight;
+    const rect = this.target.getBoundingClientRect();
+    const baseH = rect.height / this.zoom;
+    const scaledH = baseH * this.zoom;
+    // Alinha o topo da página com o topo visível (com margem de 10px)
+    const maxPanY = Math.max(0, (scaledH - vh) / 2 - 10);
+    this.panX = 0;
+    this.panY = maxPanY;
+    this.clampPan();
+    this.applyTransform(true);
+  }
+
+  public toggleReadingZoom(): number {
+    if (this.zoom > 1.1) {
+      this.reset();
+      return 1.0;
+    } else {
+      const isMobile = window.innerWidth < 640;
+      const targetZoom = isMobile ? 1.4 : 1.35;
+      this.setZoom(targetZoom);
+      this.resetPanToTop();
+      return targetZoom;
+    }
+  }
+
   private clampPan(): void {
     const rect = this.target.getBoundingClientRect();
     const vw = this.viewport.clientWidth;
